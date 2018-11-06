@@ -5,18 +5,18 @@
 	    <!--   
          Exercise 02_08_01
          Author: Tabitha Siclovan
-         Date: November 02, 2018
+         Date: November 05, 2018
         
-         NewsletterSubscribers.php
+         NewsletterSubscribers2.php
         -->
-		<title>Newsletter Subscribers</title>
+		<title>Newsletter Subscribers 2</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<script src="modernizr.custom.65897.js"></script>
 	</head>
 
 	<body>
-        <h2>Newsletter Subscribers</h2>
+        <h2>Newsletter Subscribers 2</h2>
         <?php
         //Variables
         $hostName = "localhost";
@@ -50,13 +50,11 @@
                 echo "<th>Subscribe Date</th>";
                 echo "<th>Confirmed Date</th>";
                 echo "</tr>\n";
-                while ($row = mysqli_fetch_row($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
-                    echo "<td>{$row[0]}</td>";
-                    echo "<td>{$row[1]}</td>";
-                    echo "<td>{$row[2]}</td>";
-                    echo "<td>{$row[3]}</td>";
-                    echo "<td>{$row[4]}</td>";
+                    foreach ($row as $field) {
+                         echo "<td>{$field}</td>";
+                    }
                     echo "</tr>\n";
                 }
                 echo "</table>\n";
