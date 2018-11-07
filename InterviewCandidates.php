@@ -5,20 +5,21 @@
 	    <!--   
          Exercise 02_08_01
          Author: Tabitha Siclovan
-         Date: November 05, 2018
+         Date: November 06, 2018
         
-         SignGuestBook.php
+         InterviewCandidates.php
         -->
-		<title>Sign Guest Book</title>
+		<title>Interview Candidates</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<script src="modernizr.custom.65897.js"></script>
 	</head>
 
-	<body>
-    <h1>Sign Guest Book</h1>
-    <?php
-    function connectToDB($hostname, $userName, $password) {
+	<body style="background-color: rgb(237, 222, 230); text-align:center;">
+        <h2>Interviewer's Name</h2>
+        <hr>
+        <?php
+        function connectToDB($hostname, $userName, $password) {
         $DBConnect = mysqli_connect($hostname, $userName, $password);
         if (!$DBConnect) {
             echo "<p>Connection Error: " . mysqli_connect_error() . "</p>\n";
@@ -74,14 +75,19 @@
         }
         return $success;
     }
-    $hostname = "localhost";
-    $userName = "adminer";
-    $password = "after-water-49";
-    $DBName = "guestbook";
-    $tableName = "visitors";
-    $firstName = "";
-    $lastName = "";
-    $formErrorCount = 0;
+        //Variables
+        $hostName = "localhost";
+        $userName = "adminer";
+        $password = "after-water-49";
+        $DBName = "interviews";
+        $tableName = "interviewee";
+        $firstName = "";
+        $lastName = "";
+        $position = "";
+        $date = "";
+        $communication = "";
+        $appearance = "";
+        $formErrorCount = 0;
     if (isset($_POST['submit'])) {
         $firstName = stripslashes($_POST['firstName']);
         $firstName = trim($firstName);
@@ -105,7 +111,7 @@
 //                            mysqli_error($DBConnect) . "</p>";
                     }
                         else {
-                            echo "<h3>Thank you for signing our guest book!</h3>";
+                            echo "<h3>Thank you for completing the interview!</h3>";
                             $firstName = "";
                             $lastName = "";
                         }
@@ -115,15 +121,48 @@
             }
         }
     }
-    ?>
-    <form action="SignGuestBook.php" method="post">
+        ?>
+        <form action="InterviewCandidates.php" method="post">
         <p><strong>First Name: </strong><br>
             <input type="text" name="firstName" value="<?php echo $firstName; ?>"></p>
         <p><strong>Last Name: </strong><br>
             <input type="text" name="lastName" value="<?php echo $lastName; ?>"></p>
+        <p><strong>Position: </strong><br>
+            <input type="text" name="position" value="<?php echo $position; ?>"></p>
+         <p><strong>Date of Interview: </strong><br>
+            <input type="date" name="date" value="<?php echo $date; ?>"></p>
+            <hr>
+        <h2>Candidate's Name</h2>
+        <p><strong>First Name: </strong><br>
+            <input type="text" name="firstName" value="<?php echo $firstName; ?>"></p>
+        <p><strong>Last Name: </strong><br>
+            <input type="text" name="lastName" value="<?php echo $lastName; ?>"></p>
+        <p><strong>Communication Abilities: </strong><br><br>
+           <input type="checkbox" name="communication" value="<?php echo $communication; ?>"> Listening <br>
+           <input type="checkbox" name="communication" value="<?php echo $communication; ?>"> Eye Contact<br>
+           <input type="checkbox" name="communication" value="<?php echo $communication; ?>"> Clear/Concise <br>
+           <input type="checkbox" name="communication" value="<?php echo $communication; ?>"> Friendly <br>
+           <input type="checkbox" name="communication" value="<?php echo $communication; ?>"> Confident<br>
+           <input type="checkbox" name="communication" value="<?php echo $communication; ?>"> Empathetic<br>
+           <input type="checkbox" name="communication" value="<?php echo $communication; ?>"> Other <input type="text" size="10"></p>
+        <p><strong>Professional Appearance: </strong><br>
+           <input type="checkbox" name="appearance" value="<?php echo $appearance; ?>"> Clean & Neat <br>
+           <input type="checkbox" name="appearance" value="<?php echo $appearance; ?>"> Conservative<br>
+           <input type="checkbox" name="appearance" value="<?php echo $appearance; ?>"> Business Clothing<br>
+           <input type="checkbox" name="appearance" value="<?php echo $appearance; ?>"> Clean Shaven <br>
+           <input type="checkbox" name="appearance" value="<?php echo $appearance; ?>"> Groomed<br>
+           <input type="checkbox" name="appearance" value="<?php echo $appearance; ?>"> Other <input type="text" size="10">
+        <p><strong>Computer Skills: </strong><br>
+           <textarea name="cSkills" rows="3" cols="30" style="margin: 10px 5px 5px"></textarea></p>
+        <p><strong>Business Knowledge: </strong><br>
+           <textarea name="business" rows="3" cols="30" style="margin: 10px 5px 5px"></textarea></p>
+        <p><strong>Interviewer's Comments: </strong><br>
+           <textarea name="comments" rows="6" cols="80" style="margin: 10px 5px 5px"></textarea></p>
+           <hr>
         <p><input type="submit" name="submit" value="Submit"></p>
+        <hr>
     </form>
-    <?php
+     <?php
         $DBConnect = connectToDB($hostname, $userName, $password);
         if ($DBConnect) {
             if (selectDB($DBConnect, $DBName)) {
